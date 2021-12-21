@@ -1,0 +1,22 @@
+import React from 'react'
+import { StyleSheet, Dimensions } from 'react-native';
+import { fonts, THEME_COLOR_BACKGROUND, WHITE, THEME_COLOR, fontSize, TEXT_COLOR, INPUT_TEXT, OTHER_GRAY } from '../../../Config/Config';
+import { ScaledSheet } from 'react-native-size-matters';
+
+const { width, height } = Dimensions.get('window')
+const screenHeight = height - (height * 0.18);
+const quotaWidth = width * 0.97
+const gapWidth = quotaWidth / 3.19;
+const Styles = ScaledSheet.create({
+    scrollView: {
+        width,
+        backgroundColor: THEME_COLOR_BACKGROUND,
+    },
+    contentContainerStyle: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+})
+
+export default Styles
