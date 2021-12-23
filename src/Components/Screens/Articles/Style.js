@@ -8,12 +8,19 @@ const overlayHeight = height * 0.45
 const Styles = ScaledSheet.create({
     container: {
         marginTop: '15@msr',
-        alignItems: 'center'
+        alignSelf: 'center',
+        width: width * 0.97,
     },
     articles: {
         color: WHITE,
-        fontSize: fontSize.sixteen,
-        fontFamily: fonts.semiBold
+        fontSize: fontSize.twenty,
+        fontFamily: fonts.medium,
+        textAlign: 'left'
+    },
+    artImage: {
+        marginRight: '10@msr',
+        width: '161@msr',
+        height: '202@msr'
     }
 })
 
