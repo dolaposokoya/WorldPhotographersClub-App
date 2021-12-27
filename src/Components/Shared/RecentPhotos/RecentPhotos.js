@@ -25,6 +25,8 @@ export default function RecentPhotos(props) {
     const [likeImage, setlikeImage] = useState(require('../../../Assets/Images/like.png'))
 
 
+    console.log('comment.length', comment.length)
+
     const likePhoto = async (index) => {
         try {
             const user = await AsyncStorage.getItem('@user_id')
@@ -188,7 +190,7 @@ export default function RecentPhotos(props) {
                         </FlexRow>
                     </View>
                     <View style={Styles.commentView}>
-                        <Text style={Styles.commentText}>lorem ipsum is simply dummy text of the printing and typesetting industry...</Text>
+                        <Text style={Styles.commentText}>{comment[index] > 0 ? comment[index] : 'No comment'}</Text>
                     </View>
                     <View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'flex-start', marginBottom: 0 }}>
                         <FlexRow style={{

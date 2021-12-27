@@ -27,21 +27,26 @@ function Index(props) {
             id: "1",
             image: require('../../../Assets/Images/art.png'),
             name: "5 Best ways to earn money as a...",
-            info: "Published By WPC Official Account On Jun'09,2021"
+            info: "Published By WPC Official Account",
+            date: "On Jun'09,2021",
         },
         {
             id: "2",
             image: require('../../../Assets/Images/art1.png'),
             name: "top 2021 photography trends you...",
-            info: "Published By WPC Official Account On Jun'09,2021"
+            info: "Published By WPC Official Account",
+            date: "On Jun'09,2021",
         },
         {
             id: "3",
             image: require('../../../Assets/Images/art2.png'),
             name: "5 Best ways to earn money as a...",
-            info: "Published By WPC Official Account On Jun'09,2021"
+            info: "Published By WPC Official Account",
+            date: "On Jun'09,2021",
         },
-    ]
+    ];
+
+
     const onRefresh = async () => {
         setRefreshing(true)
         await getCompetitionData();
@@ -79,17 +84,39 @@ function Index(props) {
                 }>
                 <View style={Styles.container}>
                     <Text style={Styles.articles}>Latest Articles</Text>
-
-                    <View>
-                        <ArrayList
-                            data={ArticleImages}
-                            renderItem={({ item }) => (
+                    <ArrayList
+                        data={ArticleImages}
+                        renderItem={({ item }) => (
+                            <View style={Styles.artView}>
                                 <Image
                                     source={item.image}
                                     style={Styles.artImage}
                                 />
+                                <Text style={Styles.artName}>{item.name}</Text>
+                                <Text style={Styles.artInfo}>{item.info}</Text>
+                                <Text style={[Styles.artInfo, { marginTop: 0, textDecorationLine: 'none' }]}>{item.date}</Text>
+                            </View>
+                        )}
+                        horizontal={true}
+                        keyExtractor={(item) => item.id}
+                    />
+                    <View style={Styles.moreArticles}>
+                        <Text style={Styles.articles}>More Articles</Text>
+                        <ArrayList
+                            data={ArticleImages}
+                            renderItem={({ item }) => (
+                                <View style={Styles.artView1}>
+                                    <Image
+                                        source={item.image}
+                                        style={Styles.artImage1}
+                                    />
+                                    <View>
+                                        <Text style={Styles.artName1}>{item.name}</Text>
+                                        <Text style={Styles.artInfo}>{item.info}</Text>
+                                        <Text style={[Styles.artInfo, { marginTop: 0, textDecorationLine: 'none' }]}>{item.date}</Text>
+                                    </View>
+                                </View>
                             )}
-                            horizontal={true}
                             keyExtractor={(item) => item.id}
                         />
                     </View>

@@ -221,7 +221,8 @@ export default function Index(props) {
                             <View style={Styles.mainInfo}>
                                 <View>
                                     <Text style={Styles.text}>About Me</Text>
-                                    <Text style={Styles.infoText}>lorem ipsum is simply dummy text of the printing and typesetting industry <Text style={[Styles.infoText, { color: THEME_COLOR }]}>Read more...</Text></Text>
+                                    <Text style={Styles.infoText}>{user && user.about_me}</Text>
+                                    {/* <Text style={Styles.infoText}>{user && user.about_me} <Text style={[Styles.infoText, { color: THEME_COLOR }]}>Read more...</Text></Text> */}
                                 </View>
                                 <View>
                                     <Text style={Styles.text}>Photography Interests</Text>
@@ -230,7 +231,6 @@ export default function Index(props) {
                             </View>
                             <View style={Styles.portfolioDetails}>
                                 <ArrayList
-
                                     data={Options}
                                     extraData={Options}
                                     horizontal={true}

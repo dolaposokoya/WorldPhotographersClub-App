@@ -395,7 +395,7 @@ function Index(props) {
                                 decelerationRate="fast"
                                 renderItem={({ item, index }) => <CompetitonShowCase item={item} navigation={navigation} index={index} compName={compName} compDate={compDate} compId={compId} compType={compType} loading={loading} />}
                             />
-                            <View style={Styles.showCase}>
+                            {/* <View style={Styles.showCase}>
                                 <Text style={Styles.headingText}>Courses</Text>
                                 {!loading && <TouchableOpacity onPress={() => navigation.navigate('Learn')}>
                                     <Text style={Styles.textUnderLine}>View all</Text>
@@ -412,7 +412,7 @@ function Index(props) {
                                     keyExtractor={(item, index) => index}
                                     renderItem={({ item, index }) => <Courses item={item} navigation={navigation} courseName={courseName} index={index} loading={loading} />}
                                 />
-                            </View>
+                            </View> */}
                             <View style={Styles.showCase}>
                                 <Text style={Styles.headingText}>Articles</Text>
                                 {!loading && <TouchableOpacity onPress={() => navigation.navigate('Competition')}>
