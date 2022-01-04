@@ -21,9 +21,7 @@ const MessageModal = (props) => {
                 >
                     <View style={styles.centeredView1}>
                         <View style={styles.modalView}>
-                            <View style={styles.errorView}>
-                                <Image source={require('../../../Assets/Images/error.png')} style={styles.modalImage} />
-                            </View>
+                            <Text style={[styles.errorType, { color: ERROR }]}>{'Uh oh!'}</Text>
                             <View style={styles.modalMessage}>
                                 <Text style={styles.text}>{message}</Text>
                             </View>
@@ -54,9 +52,7 @@ const MessageModal = (props) => {
                 >
                     <View style={styles.centeredView1}>
                         <View style={styles.modalView}>
-                            <View style={errorType === 'warning' ? styles.warningView : styles.successView}>
-                                <Image source={errorType === 'warning' ? require('../../../Assets/Images/warning.png') : require('../../../Assets/Images/checked.png')} style={styles.modalImage} />
-                            </View>
+                            <Text style={[styles.errorType, { color: errorType === 'warning' ? WARNING : SUCCESS }]}>{errorType === 'warning' ? 'Whoops!' : 'Congratulations!'}</Text>
                             <View style={styles.modalMessage}>
                                 <Text style={styles.text}>{message}</Text>
                             </View>
@@ -88,14 +84,22 @@ const styles = ScaledSheet.create({
         justifyContent: "center",
         alignItems: "center",
         height,
-        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: '12@msr',
+        },
+        shadowOpacity: '0.58@msr',
+        shadowRadius: '16@msr',
+        elevation: '24@msr',
     },
     modalView: {
         backgroundColor: WHITE,
-        borderRadius: '7@msr',
+        borderRadius: '10@msr',
         width: width * 0.75,
         alignItems: "center",
-        shadowColor: "#000",
+        shadowColor: '#171717',
         shadowOffset: {
             width: 0,
             height: '2@msr'
@@ -104,49 +108,22 @@ const styles = ScaledSheet.create({
         shadowRadius: '40@msr',
         elevation: '50@msr',
         paddingTop: '40@msr',
-
-    },
-    warningView: {
-        width: '50@msr',
-        height: '50@msr',
-        borderRadius: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: WARNING,
-        position: 'absolute',
-        top: '-29@msr',
-    },
-    successView: {
-        width: '50@msr',
-        height: '50@msr',
-        borderRadius: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: SUCCESS,
-        position: 'absolute',
-        top: '-29@msr',
-    },
-    errorView: {
-        width: '50@msr',
-        height: '50@msr',
-        borderRadius: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: ERROR,
-        position: 'absolute',
-        top: '-29@msr',
     },
     modalImage: {
         width: '35@msr',
         height: '35@msr',
     },
-    text: {
-        color: DARK_COLOR,
+    errorType: {
         fontFamily: fonts.medium,
+        fontSize: fontSize.twentytwo,
+    },
+    text: {
+        color: '#808080',
+        fontFamily: fonts.light,
         fontSize: fontSize.twenty,
         textAlign: "center",
-        paddingLeft: '7@msr',
-        paddingRight: '7@msr',
+        paddingLeft: '11@msr',
+        paddingRight: '11@msr',
     },
     textStyleClose: {
         color: WHITE,
@@ -162,29 +139,27 @@ const styles = ScaledSheet.create({
         paddingBottom: '25@msr',
     },
     buttonYes: {
-        width: width * 0.8,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: '12@msr',
+        marginBottom: '20@msr',
         marginTop: '12@msr',
         borderWidth: 0,
     },
     button: {
-        backgroundColor: THEME_COLOR_BACKGROUND,
         justifyContent: 'center',
         alignItems: 'center',
         paddingTop: '12@msr',
         paddingBottom: '12@msr',
-        width: width * 0.67,
-        borderRadius: '7@msr',
+        width: width * 0.6,
+        borderRadius: '10@msr',
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 2
+            height: 12,
         },
-        shadowOpacity: '0.25@msr',
-        shadowRadius: '4@msr',
-        elevation: '45@msr',
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 24,
     },
 });
 

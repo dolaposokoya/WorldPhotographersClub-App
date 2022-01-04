@@ -8,7 +8,6 @@ import Loader from '../../Shared/Loader/Loader'
 import SharedHeader from '../../Shared/SharedHeader/SharedHeader'
 import Styles from './Style'
 import { moderateScale, verticalScale } from 'react-native-size-matters';
-import { ImageHeaderScrollView, TriggeringView } from 'react-native-image-header-scroll-view';
 import Animated from 'react-native-reanimated'
 import StarRating from '../../Shared/StarRating/StarRating'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -164,6 +163,16 @@ export default function Index(props) {
         views: 34000
     }
 
+    const getImageWidth = (item) => {
+        var regex = /[?&]([^=#]+)=([^&#]*)/g,
+            params = {},
+            match;
+        while (match = regex.exec(item)) {
+            params[match[1]] = match[2];
+        }
+        console.log(`Params ${params}, item ${item}`)
+    }
+
     return (
         <>
             {loading && <Loader />}
@@ -174,149 +183,149 @@ export default function Index(props) {
                 showHideTransition="slide"
                 backgroundColor={INTEREST_COLOR}
             />
-            {loading ? <Loader /> :
-                <>
-                    <Animated.View style={[Styles.animateHeader, { opacity: opacity }]}>
-                        <SharedHeader navigation={navigation} profile={true} topPhoto={true} IMAGE={require('../../../Assets/Images/profile1.png')} username={user.user_name} />
-                    </Animated.View>
-                    <Animated.ScrollView style={Styles.container}
-                        onScroll={Animated.event(
-                            [{ nativeEvent: { contentOffset: { y: scrolling } } }],
-                            { useNativeDriver: true }
-                        )}
-                        scrollEventThrottle={16}
-                    >
-                        <BackDrop IMAGE_HEIGHT={IMAGE_HEIGHT} COLOR_HEIGHT={COLOR_HEIGHT} IMAGE={require('../../../Assets/Images/profileback.png')} />
-                        <View style={Styles.scrollView}>
-                            <View style={Styles.profileImageInfo}>
-                                <Image source={{ uri: profile_image }} style={Styles.profileImage} />
-                            </View>
-                            <View style={Styles.profileInfo}>
-                                <View>
-                                    <View style={Styles.userView}>
-                                        <Text style={Styles.usernameText} numberOfLines={1} ellipsizeMode={'tail'}>{user.user_name}</Text>
-                                        <Image source={require('../../../Assets/Images/badge.png')} style={Styles.badgeImage} />
-                                    </View>
-                                    <View style={Styles.profileInfoData}>
-                                        <StarRating ratings={ratings} />
-                                    </View>
-                                    <View style={Styles.profileInfoData}>
-                                        <Text style={Styles.text1}>{user.following} Following</Text>
-                                        <TouchableOpacity onPress={() => goToPage('Followers', user)}>
-                                            <Text style={Styles.text1}>{myFollowers} Followers</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-                                <View style={Styles.userAction}>
-                                    <TouchableOpacity style={[Styles.userActionInfoCard]} onPress={() => followed === false ? follow() : unFollow()}>
-                                        {followed === false ? <Text style={Styles.userActionInfoText}>Follow</Text> : <Image source={require('../../../Assets/Images/check.png')} style={Styles.checkImage} />}
-                                    </TouchableOpacity>
-                                    <Pressable style={[Styles.photoActionCard]}>
-                                        <Text style={Styles.userActionInfoText1} numberOfLines={1} ellipsizeMode={'tail'}>{user.photos_count} Photos</Text>
-                                    </Pressable>
-                                </View>
-                            </View>
-
-
-                            <View style={Styles.mainInfo}>
-                                <View>
-                                    <Text style={Styles.text}>About Me</Text>
-                                    <Text style={Styles.infoText}>{user && user.about_me}</Text>
-                                    {/* <Text style={Styles.infoText}>{user && user.about_me} <Text style={[Styles.infoText, { color: THEME_COLOR }]}>Read more...</Text></Text> */}
-                                </View>
-                                <View>
-                                    <Text style={Styles.text}>Photography Interests</Text>
-                                    <Text style={[Styles.infoText, { opacity: 0.48 }]}>Advertising | Aerial | Architectural | Astronomical | Music | Event | Family | Fashion | Food</Text>
-                                </View>
-                            </View>
-                            <View style={Styles.portfolioDetails}>
-                                <ArrayList
-                                    data={Options}
-                                    extraData={Options}
-                                    horizontal={true}
-                                    renderItem={({ item }) => (<Pressable style={Styles.portfolioInfo} onPress={() => onChangeView(item.id, item.name)}>
-                                        <Text style={[Styles.portfolioDetailsText, itemId === item.id && Styles.portfolioDetailsTextActive]}>{item.name}</Text>
-                                        <View style={itemId === item.id ? Styles.circle : Styles.rectangle} />
-                                    </Pressable>
-                                    )}
-                                />
-                            </View>
-                            {type === 'Photo' && <>
-                                <ArrayList
-                                    data={photoURL}
-                                    keyExtractor={(item, index) => index}
-                                    numColumns={2}
-                                    renderItem={({ item }) => (
-                                        <View style={Styles.portfolioShowcaseView}>
-                                            <Image source={{ uri: item }} style={Styles.portfolioShowcaseInfo} />
-                                        </View>
-                                    )}
-                                />
-                            </>}
-                            {type === 'Portfolio' && <>
-                                <ArrayList
-                                    data={portfolioURL}
-                                    keyExtractor={(item, index) => index}
-                                    numColumns={2}
-                                    renderItem={({ item }) => (
-                                        <View style={Styles.portfolioShowcaseView}>
-                                            <Image source={{ uri: item }} style={Styles.portfolioShowcaseInfo} />
-                                        </View>
-                                    )}
-                                />
-                            </>}
-                            {type === 'Videos' && <>
-                                <ArrayList
-                                    data={videoURL}
-                                    keyExtractor={(item, index) => index}
-                                    numColumns={2}
-                                    renderItem={({ item }) => (
-                                        <View style={Styles.portfolioShowcaseView}>
-                                            <Image source={{ uri: item }} style={Styles.portfolioShowcaseInfo} />
-                                        </View>
-                                    )}
-                                />
-                            </>}
-                            {type === 'Blog' && <>
-                                <ArrayList
-                                    data={blogsURL}
-                                    keyExtractor={(item, index) => index}
-                                    numColumns={2}
-                                    renderItem={({ item }) => (
-                                        <View style={Styles.portfolioShowcaseView}>
-                                            <Image source={{ uri: item }} style={Styles.portfolioShowcaseInfo} />
-                                        </View>
-                                    )}
-                                />
-                            </>}
-                            {type === 'Groups' && <>
-                                <ArrayList
-                                    data={groupsURL}
-                                    keyExtractor={(item, index) => index}
-                                    numColumns={2}
-                                    renderItem={({ item }) => (
-                                        <View style={Styles.portfolioShowcaseView}>
-                                            <Image source={{ uri: item }} style={Styles.portfolioShowcaseInfo} />
-                                        </View>
-                                    )}
-                                />
-                            </>}
-                            {type === 'Event' && <>
-                                <ArrayList
-                                    data={photoURL}
-                                    keyExtractor={(item, index) => index}
-                                    numColumns={2}
-                                    renderItem={({ item }) => (
-                                        <View style={Styles.portfolioShowcaseView}>
-                                            <Image source={{ uri: item }} style={Styles.portfolioShowcaseInfo} />
-                                        </View>
-                                    )}
-                                />
-                            </>}
+            <>
+                <Animated.View style={[Styles.animateHeader, { opacity: opacity }]}>
+                    <SharedHeader navigation={navigation} profile={true} topPhoto={true} IMAGE={require('../../../Assets/Images/profile1.png')} username={user.user_name} />
+                </Animated.View>
+                <Animated.ScrollView style={Styles.container}
+                    onScroll={Animated.event(
+                        [{ nativeEvent: { contentOffset: { y: scrolling } } }],
+                        { useNativeDriver: true }
+                    )}
+                    scrollEventThrottle={16}
+                >
+                    <BackDrop IMAGE_HEIGHT={IMAGE_HEIGHT} COLOR_HEIGHT={COLOR_HEIGHT} IMAGE={require('../../../Assets/Images/profileback.png')} />
+                    <View style={Styles.scrollView}>
+                        <View style={Styles.profileImageInfo}>
+                            <Image source={{ uri: profile_image }} style={Styles.profileImage} />
                         </View>
-                    </Animated.ScrollView>
-                </>
-            }
+                        <View style={Styles.profileInfo}>
+                            <View>
+                                <View style={Styles.userView}>
+                                    <Text style={Styles.usernameText} numberOfLines={1} ellipsizeMode={'tail'}>{user.user_name}</Text>
+                                    <Image source={require('../../../Assets/Images/badge.png')} style={Styles.badgeImage} />
+                                </View>
+                                <View style={Styles.profileInfoData}>
+                                    <StarRating ratings={ratings} />
+                                </View>
+                                <View style={Styles.profileInfoData}>
+                                    <Text style={Styles.text1}>{user.following} Following</Text>
+                                    <TouchableOpacity onPress={() => goToPage('Followers', user)}>
+                                        <Text style={Styles.text1}>{myFollowers} Followers</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            <View style={Styles.userAction}>
+                                <TouchableOpacity style={[Styles.userActionInfoCard]} onPress={() => followed === false ? follow() : unFollow()}>
+                                    {followed === false ? <Text style={Styles.userActionInfoText}>Follow</Text> : <Image source={require('../../../Assets/Images/check.png')} style={Styles.checkImage} />}
+                                </TouchableOpacity>
+                                <Pressable style={[Styles.photoActionCard]}>
+                                    <Text style={Styles.userActionInfoText1} numberOfLines={1} ellipsizeMode={'tail'}>{user.photos_count} Photos</Text>
+                                </Pressable>
+                            </View>
+                        </View>
+
+
+                        <View style={Styles.mainInfo}>
+                            {(user && user.about_me) && <View>
+                                <Text style={Styles.text}>About Me</Text>
+                                <Text style={Styles.infoText}>{user && user.about_me}</Text>
+                                {/* <Text style={Styles.infoText}>{user && user.about_me} <Text style={[Styles.infoText, { color: THEME_COLOR }]}>Read more...</Text></Text> */}
+                            </View>}
+                            <View>
+                                <Text style={Styles.text}>Photography Interests</Text>
+                                <Text style={[Styles.infoText, { opacity: 0.48 }]}>Advertising | Aerial | Architectural | Astronomical | Music | Event | Family | Fashion | Food</Text>
+                            </View>
+                        </View>
+                        <View style={Styles.portfolioDetails}>
+                            <ArrayList
+                                data={Options}
+                                extraData={Options}
+                                horizontal={true}
+                                renderItem={({ item }) => (<Pressable style={Styles.portfolioInfo} onPress={() => onChangeView(item.id, item.name)}>
+                                    <Text style={[Styles.portfolioDetailsText, itemId === item.id && Styles.portfolioDetailsTextActive]}>{item.name}</Text>
+                                    <View style={itemId === item.id ? Styles.circle : Styles.rectangle} />
+                                </Pressable>
+                                )}
+                            />
+                        </View>
+                        {type === 'Photo' && <>
+                            <ArrayList
+                                data={photoURL}
+                                keyExtractor={(item, index) => index}
+                                numColumns={2}
+                                renderItem={({ item }) => (
+                                    <Pressable style={Styles.portfolioShowcaseView} onPress={() => getImageWidth(item)}>
+                                        <Image source={{ uri: item }} style={[Styles.portfolioShowcaseInfo, {
+                                            height: 200
+                                        }]} />
+                                    </Pressable>
+                                )}
+                            />
+                        </>}
+                        {type === 'Portfolio' && <>
+                            <ArrayList
+                                data={portfolioURL}
+                                keyExtractor={(item, index) => index}
+                                numColumns={2}
+                                renderItem={({ item }) => (
+                                    <Pressable style={Styles.portfolioShowcaseView}>
+                                        <Image source={{ uri: item }} style={Styles.portfolioShowcaseInfo} />
+                                    </Pressable>
+                                )}
+                            />
+                        </>}
+                        {type === 'Videos' && <>
+                            <ArrayList
+                                data={videoURL}
+                                keyExtractor={(item, index) => index}
+                                numColumns={2}
+                                renderItem={({ item }) => (
+                                    <View style={Styles.portfolioShowcaseView}>
+                                        <Image source={{ uri: item }} style={Styles.portfolioShowcaseInfo} />
+                                    </View>
+                                )}
+                            />
+                        </>}
+                        {type === 'Blog' && <>
+                            <ArrayList
+                                data={blogsURL}
+                                keyExtractor={(item, index) => index}
+                                numColumns={2}
+                                renderItem={({ item }) => (
+                                    <View style={Styles.portfolioShowcaseView}>
+                                        <Image source={{ uri: item }} style={Styles.portfolioShowcaseInfo} />
+                                    </View>
+                                )}
+                            />
+                        </>}
+                        {type === 'Groups' && <>
+                            <ArrayList
+                                data={groupsURL}
+                                keyExtractor={(item, index) => index}
+                                numColumns={2}
+                                renderItem={({ item }) => (
+                                    <View style={Styles.portfolioShowcaseView}>
+                                        <Image source={{ uri: item }} style={Styles.portfolioShowcaseInfo} />
+                                    </View>
+                                )}
+                            />
+                        </>}
+                        {type === 'Event' && <>
+                            <ArrayList
+                                data={photoURL}
+                                keyExtractor={(item, index) => index}
+                                numColumns={2}
+                                renderItem={({ item }) => (
+                                    <View style={Styles.portfolioShowcaseView}>
+                                        <Image source={{ uri: item }} style={Styles.portfolioShowcaseInfo} />
+                                    </View>
+                                )}
+                            />
+                        </>}
+                    </View>
+                </Animated.ScrollView>
+            </>
         </>
     )
 }

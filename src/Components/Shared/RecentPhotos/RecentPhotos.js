@@ -25,7 +25,6 @@ export default function RecentPhotos(props) {
     const [likeImage, setlikeImage] = useState(require('../../../Assets/Images/like.png'))
 
 
-    console.log('comment.length', comment.length)
 
     const likePhoto = async (index) => {
         try {
@@ -189,13 +188,14 @@ export default function RecentPhotos(props) {
                             />
                         </FlexRow>
                     </View>
-                    <View style={Styles.commentView}>
-                        <Text style={Styles.commentText}>{comment[index] > 0 ? comment[index] : 'No comment'}</Text>
-                    </View>
+                    {(comment && comment[index] > 0) && <View style={Styles.commentView}>
+                        <Text style={Styles.commentText}>{comment[index] > 0 ? 'Photo comment' : ''}</Text>
+                    </View>}
                     <View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'flex-start', marginBottom: 0 }}>
                         <FlexRow style={{
                             justifyContent: 'flex-start',
-                            marginLeft: '3%',
+                            marginLeft: moderateScale(12),
+                            marginTop: moderateScale(10)
                         }}>
                             <Text style={Styles.like}>{photoLikes[index]} likes</Text>
                             <Text style={Styles.like}>{comment && comment[index]} comments</Text>

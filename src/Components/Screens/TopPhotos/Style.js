@@ -7,16 +7,19 @@ const { width, height } = Dimensions.get('screen')
 const Styles = ScaledSheet.create({
     loaderStyle: {
         alignItems: "center",
+        marginBottom: '30@msr',
+        // backgroundColor: 'yellow',
     },
     scrollView: {
         display: 'flex',
         alignItems: 'center',
         backgroundColor: THEME_COLOR_BACKGROUND,
         elevation: 10,
-        marginBottom: '20@msr'
+        height
     },
     loadMore: {
         marginTop: '10@msr',
+        marginBottom: '10@msr',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

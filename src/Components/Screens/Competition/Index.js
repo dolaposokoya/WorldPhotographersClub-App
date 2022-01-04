@@ -11,6 +11,7 @@ import { CompetitionAction } from '../../../Actions/CompetitionsAction'
 import BottomTabs from '../../Shared/BottomTabs/BottomTabs';
 import MessageModal from '../../Shared/Modal/MessageModal';
 import ArrayList from '../../Shared/ArrayList/ArrayList';
+import Loader from '../../Shared/Loader/Loader';
 
 
 const { width, height } = Dimensions.get('window');
@@ -86,7 +87,7 @@ function Index(props) {
     }
     return (
         <>
-            {/* {loading && <Loader />} */}
+            {loading && <Loader />}
             {openModal && <MessageModal closeModal={closeModal} message={message} errorType={errorType} />}
             <CompetitionHeader navigation={navigation} name="Competitions" />
             <FlexRow style={Styles.container}>

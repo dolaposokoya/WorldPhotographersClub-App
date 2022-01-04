@@ -259,6 +259,7 @@ function Index(props) {
                 likes: photoLikes,
                 photo_full_url: photoFullUrl,
                 parent: parents,
+                comment: comment
             })
         } catch (error) {
             seterrorType('error')
@@ -384,7 +385,7 @@ function Index(props) {
                             />
                             <View style={Styles.showCase}>
                                 <Text style={Styles.headingText}>Competitions</Text>
-                                {!loading && <TouchableOpacity onPress={() => navigation.navigate('Competition')}>
+                                {!loading && <TouchableOpacity onPress={() => navigation.navigate('CompetitionStack')}>
                                     <Text style={Styles.textUnderLine}>View all</Text>
                                 </TouchableOpacity>}
                             </View>
@@ -415,7 +416,7 @@ function Index(props) {
                             </View> */}
                             <View style={Styles.showCase}>
                                 <Text style={Styles.headingText}>Articles</Text>
-                                {!loading && <TouchableOpacity onPress={() => navigation.navigate('Competition')}>
+                                {!loading && <TouchableOpacity onPress={() => navigation.navigate('Articles')}>
                                     <Text style={Styles.textUnderLine}>View all</Text>
                                 </TouchableOpacity>}
                             </View>
@@ -428,7 +429,7 @@ function Index(props) {
                         </View>}
 
                         {page === 'Home' && <View style={{
-                            marginBottom: 10,
+                            marginBottom: moderateScale(10),
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
@@ -446,12 +447,6 @@ function Index(props) {
                                             )
                                         }}
                                         ListFooterComponent={renderLoader}
-                                        // onEndReached={(load) => {
-                                        //     console.log('loadMore()', load)
-                                        //     loadMore()
-                                        // }}
-                                        // onEndReachedThreshold={0.5}
-                                        bounces={false}
                                     />
                                     {(!isLoading && !loading) && <TouchableOpacity onPress={() => loadMore()}
                                         style={Styles.loadMore}

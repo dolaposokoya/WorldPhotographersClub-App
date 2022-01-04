@@ -6,7 +6,6 @@ import { THEME_COLOR, THEME_COLOR_BACKGROUND } from '../../../Config/Config'
 const { width, height } = Dimensions.get('screen')
 export default function Loader(props) {
 
-    // const { backgroundColor } = props
     const backgroundColor = 'rgba(0,0,0,0.7)'
     const [showText, setshowText] = useState(true)
 

@@ -204,16 +204,15 @@ const Styles = ScaledSheet.create({
         backgroundColor: OTHER_GRAY
     },
     portfolioShowcaseView: {
-        width: width * 0.97,
-        height: '237@msr',
+        width: width * 0.46,
+        // height: '237@msr',
         borderRadius: 5,
         marginTop: '15@msr',
         margin: '5@msr',
-        backgroundColor: 'red'
     },
     portfolioShowcaseInfo: {
         width: '100%',
-        height: '100%',
+        // height: '100%',
         borderRadius: 5,
     },
 })

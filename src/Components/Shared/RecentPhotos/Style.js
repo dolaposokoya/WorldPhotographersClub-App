@@ -60,7 +60,8 @@ const Styles = ScaledSheet.create({
     },
     commentText: {
         color: WHITE,
-        margin: '10@msr',
+        marginLeft: '10@msr',
+        marginTop: '10@msr',
         fontSize: fontSize.fourteen,
         fontFamily: fonts.regular
     },
